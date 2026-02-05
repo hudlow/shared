@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>full screen test</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Roboto;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      #preview {
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        background: #91939f;
+        overflow: hidden;
+
+        &.hidden {
+          display: none;
+        }
+
+        & button {
+          width: fit-content;
+          padding: 2vh;
+          border: 0;
+          background: #ddd;
+          border-radius: 1vh;
+
+          &:active {
+            background: #afc0f4;
+          }
+
+          & i {
+            display: block;
+            height: 5vh;
+            width: 5vh;
+            margin: 0 auto;
+            margin-bottom: 1vh;
+            background: url("./save.svg") center center no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+
+      #content {
+        background-color: #edf2fa;
+        background-image: url(./bg.png);
+        background-size: cover;
+        background-position: bottom center;
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        transition: all 0.25s ease-out;
+
+        &.hidden {
+          height: 120vh;
+          opacity: 0.5;
+        }
+
+        & h1 {
+          font-size: 2vh;
+          font-weight: 400;
+          text-align: center;
+          margin: 0;
+          margin-top: 8vh;
+        }
+
+        & #input {
+          padding-top: 4.5vh;
+
+          & input {
+            display: block;
+            margin: 1vh auto;
+            width: 75vw;
+            border: 0.3vh solid rgba(0, 0, 0, 50%);
+            border-radius: 2vh;
+            font-size: 5vh;
+            line-height: 5vh;
+            outline: 0;
+            padding: 0;
+            background: transparent;
+            text-align: center;
+            -webkit-text-security: disc;
+          }
+        }
+      }
+
+      #emergency {
+        & button {
+          border: 0;
+          border-radius: 2.6vh;
+          background: #dee2f7;
+          margin: 3.2vh auto;
+          padding: 1.6vh 3.2vh;
+          display: block;
+          font-size: 1.6vh;
+          line-height: 2vh;
+        }
+      }
+
+      #footer {
+        font-size: 13px;
+        padding: 6px;
+        text-align: center;
+        width: 100vw;
+      }
+
+      #pad {
+        & .row {
+          margin: 1.4vh auto;
+          width: 72%;
+          display: flex;
+          justify-content: space-between;
+
+          & button {
+            background: #cacad1;
+            border: 0;
+            outline: 0;
+            aspect-ratio: 1;
+            width: 28%;
+            margin-right: 3%;
+            border-radius: 100%;
+            transition: all 1s ease-out;
+
+            & b {
+              font-size: 7.5vw;
+              font-weight: 400;
+              transition: all 1s ease-out;
+            }
+
+            &:active {
+              transition: all 0.1s ease-out;
+              background: #afc0f4;
+              border-radius: 2vh;
+
+              & b {
+                display: block;
+                transform: scaleX(1.25);
+                transition: all 0.1s ease-out;
+              }
+            }
+
+            &:last-child {
+              margin-right: 0;
+            }
+
+            & i {
+              height: 50%;
+              width: 50%;
+              display: block;
+              margin: auto auto;
+
+              &.backspace {
+                background: url("./backspace.svg") center center no-repeat;
+                background-size: contain;
+              }
+
+              &.start {
+                background: url("./start.svg") center center no-repeat;
+                background-size: contain;
+              }
+            }
+          }
+
+        }
+      }
+    </style>
+    <script>
+      function add() {
+        document.getElementById("pin").value += "x";
+      }
+
+      function subtract() {
+        const pin = document.getElementById("pin");
+        pin.value = pin.value.slice(1);
+      }
+
+      function goFullscreen() {
+        document.getElementById('preview').classList.add("hidden");
+        document.getElementById('content').classList.remove("hidden");
+        document.getElementById('content').requestFullscreen();
+      }
+    </script>
+  </head>
+  <body>
+    <div id="preview">
+      <button onclick="goFullscreen()"><i></i>Download Shared File</button>
+    </div>
+    <div id="content" class="hidden">
+      <h1>Enter PIN</h1>
+      <div id="input">
+        <input id="pin" type="text" readonly />
+      </div>
+      <div id="base">
+        <div id="pad">
+          <div class="row">
+            <button onclick="add();"><b>1</b></button>
+            <button onclick="add();"><b>2</b></button>
+            <button onclick="add();"><b>3</b></button>
+          </div>
+          <div class="row">
+            <button onclick="add();"><b>4</b></button>
+            <button onclick="add();"><b>5</b></button>
+            <button onclick="add();"><b>6</b></button>
+          </div>
+          <div class="row">
+            <button onclick="add();"><b>7</b></button>
+            <button onclick="add();"><b>8</b></button>
+            <button onclick="add();"><b>9</b></button>
+          </div>
+          <div class="row">
+            <button onclick="subtract();"><i class="backspace">&nbsp;</i></button>
+            <button onclick="add();"><b>0</b></button>
+            <button onclick="window.location.reload()"><i class="start">&nbsp;</i></button>
+          </div>
+        </div>
+        <div id="emergency">
+          <button>Emergency</button>
+        </div>
+        <div id="footer">
+               Five unlock attempts remaining. Never share <br />your phone's PIN with anyone.
+          <!-- Drag from top and swipe from the left or right<br />edge to exit full screen. -->
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
