@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, viewport-fit=cover">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Sign in - Google Accounts</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Roboto;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      #preview {
+        height: 2400px;
+        width: 100vw;
+        padding-top: 128px;
+        text-align: center;
+
+        & a {
+          display: inline-block;
+          background: rgb(248, 249, 250);
+          border: 1px solid rgb(222, 226, 230);
+          box-shadow: rgba(0, 0, 0, 0.075) 0px 2px 4px 0px;
+          padding: 8px 24px;
+          padding-left: calc(24px + 30px + 8px);
+          border-radius: 46px;
+          font-size: 20px;
+          line-height: 30px;
+          text-decoration: none;
+          color: black;
+          font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+          transition: background 200ms linear;
+          position: relative;
+          white-space: nowrap;
+
+          &::before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            top: 8px;
+            left: 24px;
+            display: block;
+            background-image: url(./google.svg);
+            background-size: 90%;
+            background-position: center center;
+            background-repeat: no-repeat;
+          }
+
+          &:hover {
+            background: rgb(222, 226, 230)
+          }
+        }
+      }
+
+      #content {
+        background-color: #edf2fa;
+        background-image: url(./all.png);
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+        height: 840px;
+        width: 100vw;
+        flex-direction: column;
+        justify-content: space-between;
+
+        & input {
+          margin: 0 6vw;
+          border: none;
+          margin-top: 75.8vw;
+          appearance: none;
+          outline: none;
+          background: none;
+          font-size: 3.8vw;
+          font-weight: 350;
+          padding: 4.5vw 3.5vw;
+          width: 88vw;
+        }
+      }
+    </style>
+    <script>
+      function add() {
+        document.getElementById("pin").value += "x";
+      }
+
+      function subtract() {
+        const pin = document.getElementById("pin");
+        pin.value = pin.value.slice(1);
+      }
+
+      function goFullscreen() {
+        document.getElementById('preview').classList.add("hidden");
+        document.getElementById('content').classList.remove("hidden");
+        document.getElementById('input').focus();
+        document.documentElement.requestFullscreen();
+      }
+    </script>
+  </head>
+  <body>
+    <div id="preview">
+      <a href="javascript:goFullscreen()">Sign in with Google</a>
+    </div>
+    <div id="content" class="hidden">
+      <input id="input" type="text" autocomplete="chrome-off" />
+    </div>
+  </body>
+</html>
